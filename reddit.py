@@ -14,7 +14,7 @@ class RedditScraper:
         else:
             print(f"Error: Unable to connect to the URL. Status code: {res.status_code}")
 
-    def get_posts(self):
+    def get_posts(self): 
         posts_data = []
         try:
             posts = self.soup.find_all('article', {'class': 'w-full m-0'}, limit=3)
@@ -25,18 +25,12 @@ class RedditScraper:
                     title=title_tag.get_text()
                 else:
                     print("No title found")
-                print(title)
 
                 link = post.find('a').get('href')
                 if link.startswith('/'):
                     full_link = f"https://www.reddit.com{link}"  
-                print(full_link)
 
-                upvote_tag=post.find('span')
-                if upvote_tag:
-                    upvotes = upvote_tag.get('pretty number')
-                else:
-                    print("No upvotes found")
+                upvote_tag=post.find('span').get('pretty number')
                 print(upvotes)
                 
                 posts_data.append({
